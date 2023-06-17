@@ -28,7 +28,7 @@ export class News extends Component {
 
       async componentDidMount(){
         // console.log("cmf")
-        let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=72db924db7f2420c8433c975adaa8297&page=1&pageSize=${this.props.pageSize}`;
+        let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=29a776b522a44e2e88983db04b2cb225&page=1&pageSize=${this.props.pageSize}`;
         this.setState({loading:true})
         let data = await fetch(url);
         let parsedData = await data.json();
@@ -38,7 +38,7 @@ export class News extends Component {
 
         handleNext = async ()=>{
           
-            let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=72db924db7f2420c8433c975adaa8297&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
+            let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=29a776b522a44e2e88983db04b2cb225&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
             this.setState({loading:true});
             let data = await fetch(url);
             let parsedData = await data.json();
@@ -50,7 +50,7 @@ export class News extends Component {
       }
       
        handlePrev = async()=>{
-        let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=72db924db7f2420c8433c975adaa8297&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
+        let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=29a776b522a44e2e88983db04b2cb225&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
         this.setState({loading:true});
         let data = await fetch(url);
         let parsedData = await data.json();
