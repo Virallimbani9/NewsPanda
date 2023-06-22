@@ -32,7 +32,7 @@ export class News extends Component {
   }
 
   async updateNews(){
-    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=f6ff782fd3674be6bc8a50e0c6255a85&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apikey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
     let data = await fetch(url);
     let parsedData = await data.json();
@@ -51,7 +51,7 @@ export class News extends Component {
 
  fetchMoreData = async() => {
     this.setState({page:this.state.page + 1});
-    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=f6ff782fd3674be6bc8a50e0c6255a85&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apikey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
     let data = await fetch(url);
     let parsedData =  await data.json();
@@ -70,7 +70,7 @@ render() {
           NewsPanda - Top {this.cap(this.props.category)} Headlines
         </h1>
         <InfiniteScroll
-          dataLength={this.state.articles.length}
+          dataLength={this.state.articles ?this.state.articles.length:0}
           next={this.fetchMoreData}
           hasMore={this.state.articles !== this.state.totalResults}
           loader={<Spinner/>}
