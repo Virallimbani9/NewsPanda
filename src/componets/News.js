@@ -48,19 +48,27 @@ class News extends Component {
   async componentDidMount() {
     this.updateNews();
   }
-
+  //i have applied here spread operator to avoid duplicate data with proper error checking
   fetchMoreData = async () => {
-    this.setState({ page: this.state.page + 1 });
-    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apikey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
-    this.setState({ loading: true });
-    let data = await fetch(url);
-    let parsedData = await data.json();
+    const nextPage = this.state.page + 1;
+    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apikey}&page=${nextPage}&pageSize=${this.props.pageSize}`;
 
-    this.setState({
-      articles: this.state.articles.concat(parsedData.articles),
-      totalResults: parsedData.totalResults,
-      loading: false,
-    });
+    this.setState({ loading: true });
+
+    try {
+      const response = await fetch(url);
+      const parsedData = await response.json();
+
+      this.setState((prevState) => ({
+        articles: [...prevState.articles, ...parsedData.articles],
+        totalResults: parsedData.totalResults,
+        loading: false,
+        page: nextPage,
+      }));
+    } catch (error) {
+      console.error("Error fetching news:", error);
+      this.setState({ loading: false });
+    }
   };
 
   render() {
